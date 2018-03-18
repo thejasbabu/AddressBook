@@ -32,16 +32,17 @@ class AddressBookTest extends FlatSpec with Matchers {
     updatedAddressBook.entries.size shouldEqual 1
   }
 
-  "AddressBook" should "find entry for a person" in {
+  "AddressBook" should "should be able to edit the address" in {
     val mark = Person("mark", "newton", "9987778")
     val bangalore = Address("Bangalore", "Kar", "577", "#22, 2nd Street")
-    val sam = Person("sam", "newton", "9987778")
     val mumbai = Address("Mumbai", "MH", "577", "#22, 2nd Street")
-
     val markEntry = Entry(mark, bangalore)
-    val samEntry = Entry(sam, mumbai)
-    val addressBook = AddressBook(Set(markEntry, samEntry))
-    addressBook.entries.size shouldEqual 2
-    addressBook.find(sam) shouldEqual Some(samEntry)
+
+    val addressBook = AddressBook(Set(markEntry))
+
+    val updatedEntry = markEntry.editAddress(mumbai)
+
+    val updatedAddressBook = addressBook.edit(markEntry, updatedEntry)
+    updatedAddressBook.isPresent(updatedEntry) shouldEqual true
   }
 }

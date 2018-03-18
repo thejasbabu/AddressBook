@@ -9,8 +9,12 @@ case class AddressBook(entries: Set[Entry]) {
     AddressBook(this.entries - entry)
   }
 
-  def find(person: Person): Option[Entry] = {
-    val entry = this.entries.filter(_.person.equals(person))
-    entry.headOption
+  def edit(oldEntry: Entry, updatedEntry: Entry) = {
+    if(isPresent(oldEntry)) remove(oldEntry).add(updatedEntry)
+    else add(updatedEntry)
+  }
+
+  def isPresent(entry: Entry) = {
+    this.entries.contains(entry)
   }
 }
