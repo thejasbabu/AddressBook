@@ -6,3 +6,9 @@ case class Person(firstName: String, lastName: String, phoneNumber: String) {
     this.lastName.equalsIgnoreCase(person.lastName) && this.firstName.equalsIgnoreCase(person.firstName)
   }
 }
+
+object LastNameComparator extends Ordering[Person] {
+  override def compare(x: Person, y: Person): Int = {
+    x.lastName.compareTo(y.lastName)
+  }
+}
